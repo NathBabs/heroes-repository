@@ -9,7 +9,7 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "concurrently \"yarn --cwd api start\" \"yarn --cwd client start\"",
+    "start": "concurrently \"yarn workspace api start:dev\" \"yarn workspace client dev\"",
     "start:api": "yarn workspace api start:dev",
     "build:api": "yarn workspace api build",
     "test:api": "yarn workspace api test",

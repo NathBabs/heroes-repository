@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { CreateSuperHeroDto } from './dto/create-superhero.dto';
 import { SuperheroRepository } from './superhero.repository';
 import { CreateSuperHero } from '../../common/types/shared.types';
@@ -17,8 +17,18 @@ export class SuperheroService {
    */
   createSuperhero(superHero: CreateSuperHeroDto): CreateSuperHero {
     try {
+      // check if superhero already exists before adding
+      if (this.superheroRepository.itExists(superHero)) {
+        throw new HttpException(
+          'Superhero already exists, please use a different name',
+          HttpStatus.CONFLICT,
+        );
+      }
+
       return this.superheroRepository.create({
-        ...superHero,
+        name: superHero.name.trim(),
+        superpower: superHero.superpower.trim(),
+        humilityScore: superHero.humilityScore,
         created_at: new Date().toISOString(),
       });
     } catch (error) {
@@ -38,7 +48,7 @@ export class SuperheroService {
       const superheroes = this.superheroRepository.findAll();
 
       // next is to sort the superheroes by humility score
-      superheroes.sort((a, b) => b.humility - a.humility);
+      superheroes.sort((a, b) => b.humilityScore - a.humilityScore);
 
       return superheroes;
     } catch (error) {

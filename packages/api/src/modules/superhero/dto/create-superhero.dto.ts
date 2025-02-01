@@ -18,10 +18,10 @@ export class CreateSuperHeroDto {
   superpower: string;
 
   @IsNotEmpty({
-    message: 'Humility is required',
+    message: 'Humility score is required',
   })
   @IsInt({
-    message: 'Humility must be an integer',
+    message: 'Humility score must be an integer',
   })
   @Min(1, {
     message: 'Humility score must be at least 1',
@@ -29,5 +29,5 @@ export class CreateSuperHeroDto {
   @Max(10, {
     message: 'Humility score must be at most 10',
   })
-  humility: number;
+  humilityScore: number;
 }

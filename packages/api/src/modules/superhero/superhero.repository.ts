@@ -4,7 +4,7 @@ import { CreateSuperHero } from '../../common/types/shared.types';
 
 @Injectable()
 export class SuperheroRepository {
-  private db = [];
+  private db: CreateSuperHero[] = [];
 
   constructor() {}
 
@@ -16,6 +16,14 @@ export class SuperheroRepository {
   create(superhero: CreateSuperHero): CreateSuperHero {
     this.db.push(superhero);
     return superhero;
+  }
+
+  itExists(superhero: Omit<CreateSuperHero, 'created_at'>): boolean {
+    return this.db.some(
+      (existingSuperhero) =>
+        existingSuperhero.name.trim().toLowerCase() ===
+        superhero.name.trim().toLowerCase(),
+    );
   }
 
   /**
