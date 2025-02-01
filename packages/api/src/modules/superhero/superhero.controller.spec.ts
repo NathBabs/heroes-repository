@@ -4,8 +4,6 @@ import { SuperheroService } from './superhero.service';
 import { SuperheroRepository } from './superhero.repository';
 import { HttpException, HttpStatus, ValidationPipe } from '@nestjs/common';
 import { CreateSuperHeroDto } from './dto/create-superhero.dto';
-Response;
-import { CreateSuperHero, Response } from '../../common/types/shared.types';
 
 describe('SuperheroController', () => {
   let controller: SuperheroController;

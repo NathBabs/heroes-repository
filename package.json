@@ -14,6 +14,7 @@
     "build:api": "yarn workspace api build",
     "test:api": "yarn workspace api test",
     "lint:api": "yarn workspace api lint",
+    "lint:client": "yarn workspace client lint",
     "commit": "cz"
   },
   "devDependencies": {
