@@ -41,9 +41,8 @@ humble-heroes-repo/
 ## API Endpoints
 
 ### Create Superhero
+POST `/superheroes`
 ```bash
-POST /superheroes
-
 Request:
 {
     "name": "The Silent Guardian",
@@ -66,9 +65,9 @@ Response:
 ```
 
 ### List Superheroes
-```bash
-GET /superheroes
+GET `/superheroes`
 
+```bash
 Response:
 {
     "statusCode": 200,
@@ -85,11 +84,13 @@ Response:
 }
 ```
 
+<br>
+
 ## Getting Started
 
 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/humble-heroes-repo.git
+git clone https://github.com/NathBabs/heroes-repository.git
 ```
 
 2. Install dependencies
@@ -138,12 +139,15 @@ Run tests with:
 yarn test
 ```
 
+<br>
 
 ## Data Validation Rules
 
 - Name: Required, string
 - Superpower: Required, string
 - Humility Score: Required, number between 1-10
+
+<br>
 
 ## Error Handling
 
@@ -155,6 +159,8 @@ The API returns structured error responses:
     "timestamp": "2024-01-31T15:38:18.542Z"
 }
 ```
+<br>
+
 ## **Collaborating with Team Members**  
 Building the **Humble Heroes Repository** highlights several key areas where collaboration can enhance development, maintainability, and overall efficiency. Here’s how I would work with teammates to improve and expand the project:  
 
