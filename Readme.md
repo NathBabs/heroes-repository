@@ -1,5 +1,8 @@
 # Humble Heroes Repository
 
+<img width="1303" alt="Screenshot 2025-02-03 at 12 02 48 AM" src="https://github.com/user-attachments/assets/0c474415-c021-47b2-9cda-1570d0143b51" />
+
+
 A monorepo containing a full-stack application for managing superheroes with humility scores. Built with NestJS (API) and React (Client).
 
 ## Project Structure
