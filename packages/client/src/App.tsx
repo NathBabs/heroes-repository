@@ -5,17 +5,23 @@ import { SuperheroList } from './components/SuperheroList';
 import type { Superhero } from './types/superhero';
 
 
+// Define the API URL based on the environment variable or default to localhost
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
+/**
+ * Axios instance with pre-configured options for the application's API.
+ * @type {AxiosInstance}
+ */
 export const api = axios.create({
   baseURL: API_URL,
   headers: {
     "Content-Type": "application/json",
-    "Cache-Control": "no-cache",
-    "Pragma": "no-cache",
-    "Expires": "0",
+    "Cache-Control": "no-cache", // Prevents caching
+    "Pragma": "no-cache", //  Prevents caching
+    "Expires": "0", // Prevents caching
   },
 });
+
 // Dummy data for development
 const dummyData: Superhero[] = [
   { name: 'The Silent Guardian', superpower: 'Invisibility & Healing Others', humilityScore: 9, created_at: '2025-01-31T15:38:18.542Z' },
@@ -26,6 +32,7 @@ const dummyData: Superhero[] = [
 ];
 
 function App() {
+  // state variables for managing superheroes, loading state, and error messages
   const [superheroes, setSuperheroes] = useState<Superhero[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -45,11 +52,14 @@ function App() {
       const response = await api.get("/superheroes");
 
       const heroesData = response.data.data;
-      // console.log('Setting superheroes:', heroesData);
+      // Check if the response data is an array
       setSuperheroes(Array.isArray(heroesData) ? heroesData : []);
     } catch (err) {
       let errorMessage = 'Failed to fetch superheroes';
 
+      /**
+       * If the error is an instance of AxiosError, extract the error message from the response data.
+       */
       if (err instanceof AxiosError) {
         errorMessage = err.response?.data && typeof err.response.data === 'object' && 'message' in err.response.data
           ? err.response.data.message
@@ -68,6 +78,12 @@ function App() {
   };
 
 
+  /**
+   * Fetches the list of superheroes from the API and updates the state when the component mounts.
+   * 
+   * The `isMounted` flag is used to ensure that the state is only updated if the component is still mounted,
+   * preventing potential memory leaks or issues with updating the state of an unmounted component.
+   */
   useEffect(() => {
     let isMounted = true;
     fetchSuperheroes().finally(() => {
@@ -97,6 +113,9 @@ function App() {
     } catch (err) {
       let errorMessage = 'Failed to fetch superheroes';
 
+      /**
+       * If the error is an instance of AxiosError, extract the error message from the response data.
+       */
       if (err instanceof AxiosError) {
         errorMessage = err.response?.data && typeof err.response.data === 'object' && 'message' in err.response.data
           ? err.response.data.message
@@ -104,8 +123,11 @@ function App() {
       }
 
       console.error('Error adding superhero:', errorMessage);
+
+      // Sets the error state with the provided error message.
       setError(errorMessage as string);
     } finally {
+      // Reset loading and error states
       setLoading(false);
     }
   };

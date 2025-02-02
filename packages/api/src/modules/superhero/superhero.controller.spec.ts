@@ -9,12 +9,20 @@ describe('SuperheroController', () => {
   let controller: SuperheroController;
   let service: SuperheroService;
 
+  /**
+   * A mock superhero object used for testing purposes.
+   * this object represents the data that will be sent to the
+   * POST - /superheroes route.
+   * */
   const mockSuperhero = {
     name: 'Test Hero',
     superpower: 'Testing',
     humilityScore: 8,
   };
 
+  /**
+   * A mock superhero object that represents a newly created superhero, with the `created_at` property added.
+   */
   const mockCreatedSuperhero = {
     ...mockSuperhero,
     created_at: '2024-01-31T15:38:18.542Z',
@@ -28,8 +36,8 @@ describe('SuperheroController', () => {
         {
           provide: SuperheroRepository,
           useValue: {
-            create: jest.fn(),
-            itExists: jest.fn(),
+            create: jest.fn(), // mock the create method of the SuperheroRepository
+            itExists: jest.fn(), // mock the itExists method of the SuperheroRepository
           },
         },
       ],
@@ -77,6 +85,9 @@ describe('SuperheroController', () => {
         );
       });
 
+      /**
+       * Verifies that the `createSuperhero` controller throws a `HttpException` with a 'Superhero already exists' message and a `HttpStatus.CONFLICT` status code when a superhero already exists.
+       */
       expect(() => controller.createSuperhero(mockSuperhero)).toThrow(
         new HttpException('Superhero already exists', HttpStatus.CONFLICT),
       );
@@ -85,6 +96,9 @@ describe('SuperheroController', () => {
     it('validates superhero name is not empty', () => {
       const invalidSuperhero = { ...mockSuperhero, name: '' };
 
+      /**
+       * Verifies that the `validationPipe` correctly rejects an invalid superhero object with an empty name.
+       */
       const validationPipe = new ValidationPipe();
 
       expect(
@@ -97,6 +111,10 @@ describe('SuperheroController', () => {
 
     it('validates humility score is between 1 and 10', () => {
       const invalidSuperhero = { ...mockSuperhero, humilityScore: 11 };
+
+      /**
+       * Verifies that the `validationPipe` correctly rejects an invalid superhero object with an invalid hulimity score value.
+       */
       const validationPipe = new ValidationPipe();
 
       expect(
@@ -113,6 +131,10 @@ describe('SuperheroController', () => {
       const incompleteSuperhero = {
         name: 'Test Hero',
       };
+
+      /**
+       * Verifies that the `validationPipe` correctly rejects an incomplete superhero object with missing required fields.
+       */
       const validationPipe = new ValidationPipe();
 
       expect(
@@ -129,6 +151,9 @@ describe('SuperheroController', () => {
         superpower: 123,
       };
 
+      /**
+       * Verifies that the `validationPipe` correctly rejects an invalid superhero object a superpower value that is not a string.
+       */
       const validationPipe = new ValidationPipe();
 
       expect(

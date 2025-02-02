@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { CreateSuperHeroDto } from './dto/create-superhero.dto';
 import { SuperheroRepository } from './superhero.repository';
-import { CreateSuperHero } from '../../common/types/shared.types';
+import { SuperHero } from '../../common/types/shared.types';
 
 @Injectable()
 export class SuperheroService {
@@ -15,7 +15,7 @@ export class SuperheroService {
    * @returns The created superhero data transfer object.
    * @throws {Error} If an error occurs while creating the superhero.
    */
-  createSuperhero(superHero: CreateSuperHeroDto): CreateSuperHero {
+  createSuperhero(superHero: CreateSuperHeroDto): SuperHero {
     try {
       // check if superhero already exists before adding
       if (this.superheroRepository.itExists(superHero)) {
@@ -40,10 +40,10 @@ export class SuperheroService {
   /**
    * Retrieves all superheroes from the repository, sorted by
    * humility score
-   * @returns {CreateSuperHero[]} An array of superhero data transfer objects.
+   * @returns {SuperHero[]} An array of superhero data transfer objects.
    * @throws {Error} If an error occurs while retrieving the superheroes.
    */
-  findAllSuperheroes(): CreateSuperHero[] {
+  findAllSuperheroes(): SuperHero[] {
     try {
       const superheroes = this.superheroRepository.findAll();
 

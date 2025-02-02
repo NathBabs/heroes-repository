@@ -7,6 +7,6 @@ export interface Response<T> {
   data: T;
 }
 
-export type CreateSuperHero = CreateSuperHeroDto & {
+export type SuperHero = CreateSuperHeroDto & {
   created_at: string;
 };

@@ -1,6 +1,6 @@
 import { Body, Controller, Get, HttpStatus, Post } from '@nestjs/common';
 import { CreateSuperHeroDto } from './dto/create-superhero.dto';
-import { CreateSuperHero, Response } from '../../common/types/shared.types';
+import { SuperHero, Response } from '../../common/types/shared.types';
 import { SuperheroService } from './superhero.service';
 
 @Controller('superheroes')
@@ -8,7 +8,7 @@ export class SuperheroController {
   constructor(private readonly superheroService: SuperheroService) {}
 
   @Post()
-  createSuperhero(@Body() body: CreateSuperHeroDto): Response<CreateSuperHero> {
+  createSuperhero(@Body() body: CreateSuperHeroDto): Response<SuperHero> {
     const createdSuperhero = this.superheroService.createSuperhero(body);
 
     return {
@@ -20,7 +20,7 @@ export class SuperheroController {
   }
 
   @Get()
-  findAllSuperheroes(): Response<CreateSuperHero[]> {
+  findAllSuperheroes(): Response<SuperHero[]> {
     const superheroes = this.superheroService.findAllSuperheroes();
     return {
       statusCode: HttpStatus.OK,

@@ -8,6 +8,6 @@ export default defineConfig({
     dedupe: ['react', 'react-dom'],
   },
   optimizeDeps: {
-    include: ['lucide-react']
+    include: ['@phosphor-icons/react'],
   }
 });

@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { CreateSuperHeroDto } from './dto/create-superhero.dto';
-import { CreateSuperHero } from '../../common/types/shared.types';
+import { SuperHero } from '../../common/types/shared.types';
 
 @Injectable()
 export class SuperheroRepository {
-  private db: CreateSuperHero[] = [];
+  private db: SuperHero[] = [];
 
   constructor() {}
 
@@ -13,12 +13,17 @@ export class SuperheroRepository {
    * @param superhero - The superhero data to create.
    * @returns The created superhero.
    */
-  create(superhero: CreateSuperHero): CreateSuperHero {
+  create(superhero: SuperHero): SuperHero {
     this.db.push(superhero);
     return superhero;
   }
 
-  itExists(superhero: Omit<CreateSuperHero, 'created_at'>): boolean {
+  /**
+   * Checks if a superhero with the given name already exists in the database.
+   * @param superhero - The superhero data to check for existence.
+   * @returns `true` if a superhero with the same name already exists, `false` otherwise.
+   */
+  itExists(superhero: Omit<SuperHero, 'created_at'>): boolean {
     return this.db.some(
       (existingSuperhero) =>
         existingSuperhero.name.trim().toLowerCase() ===
@@ -30,7 +35,7 @@ export class SuperheroRepository {
    * Retrieves all superhero data from the database.
    * @returns An array of `CreateSuperHeroDto` objects representing all superheros in the database.
    */
-  findAll(): CreateSuperHero[] {
+  findAll(): SuperHero[] {
     return this.db;
   }
 

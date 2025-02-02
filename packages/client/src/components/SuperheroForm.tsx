@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import { Shield, Loader2 } from 'lucide-react';
+import {
+  CircleNotch,
+  ShieldCheckered
+} from "@phosphor-icons/react";
 
 interface SuperheroFormProps {
   onSubmit: (superhero: { name: string; superpower: string; humilityScore: number; }) => void;
@@ -19,13 +22,13 @@ export function SuperheroForm({ onSubmit, isLoading }: SuperheroFormProps) {
     onSubmit({ name, superpower, humilityScore });
     setName('');
     setSuperpower('');
-    setHumilityScore(5);
+    setHumilityScore(5); // set humilityScore to 5 after submission
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-md">
       <div className="flex items-center gap-2 mb-6">
-        <Shield className="w-6 h-6 text-indigo-600" />
+        <ShieldCheckered weight='fill' className="w-6 h-6 text-indigo-600" />
         <h2 className="text-xl font-semibold text-gray-800">Add New Superhero</h2>
       </div>
 
@@ -39,7 +42,7 @@ export function SuperheroForm({ onSubmit, isLoading }: SuperheroFormProps) {
             id="name"
             value={name}
             onChange={(e) => setName(e.target.value.slice(0, MAX_NAME_LENGTH))}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full px-3 py-2 bg-white text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
             required
             maxLength={MAX_NAME_LENGTH}
           />
@@ -59,7 +62,7 @@ export function SuperheroForm({ onSubmit, isLoading }: SuperheroFormProps) {
             id="superpower"
             value={superpower}
             onChange={(e) => setSuperpower(e.target.value.slice(0, MAX_SUPERPOWER_LENGTH))}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full px-3 py-2 bg-white text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
             required
             maxLength={MAX_SUPERPOWER_LENGTH}
           />
@@ -92,7 +95,7 @@ export function SuperheroForm({ onSubmit, isLoading }: SuperheroFormProps) {
       >
         {isLoading ? (
           <>
-            <Loader2 className="w-4 h-4 animate-spin" />
+            <CircleNotch className="w-4 h-4 animate-spin" />
             Adding Superhero...
           </>
         ) : (
